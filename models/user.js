@@ -1,5 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
+const { GENDERS } = require('../constants');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -13,13 +15,44 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      email: DataTypes.STRING,
-      passwordHash: DataTypes.STRING,
-      gender: DataTypes.STRING,
-      birsday: DataTypes.DATEONLY,
-      image: DataTypes.STRING,
+      firstName: {
+        type: DataTypes.STRING(64),
+        allowNull: false,
+        validate: {
+          is: /^[A-Z][a-z]+$/,
+          len: [2, 64],
+        },
+      },
+      lastName: {
+        type: DataTypes.STRING(64),
+        validate: {
+          is: /^[A-Z][a-z]+$/,
+          len: [2, 64],
+        },
+      },
+      email: {
+        type: DataTypes.STRING(100),
+        unique: true,
+        allowNull: false,
+        validate: { isEmail: true },
+      },
+      passwHash: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      birthday: {
+        type: DataTypes.DATEONLY,
+        validate: {
+          isBefore: new Date().toISOString(),
+        },
+      },
+      gender: {
+        type: DataTypes.STRING(10),
+        validate: {
+          isIn: [GENDERS],
+        },
+      },
+      image: DataTypes.STRING(255),
     },
     {
       sequelize,
