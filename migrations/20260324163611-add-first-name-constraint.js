@@ -11,7 +11,7 @@ module.exports = {
       name: 'first_name_check',
       where: {
         first_name: {
-          [Sequelize.Op.regexp]: '/^[A-Z][a-z]{1,63}$/',
+          [Sequelize.Op.regexp]: '^[A-Z][a-z]{1,63}$',
         },
       },
     });
