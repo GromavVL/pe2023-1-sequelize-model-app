@@ -36,11 +36,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: { isEmail: true },
       },
-      passwHash: {
+      passwordHash: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      birthday: {
+      passwordHash: {
         type: DataTypes.DATEONLY,
         validate: {
           isBefore: new Date().toISOString(),
