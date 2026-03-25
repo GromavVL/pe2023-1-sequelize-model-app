@@ -1,16 +1,34 @@
+const { hashSync } = require('bcrypt');
+const _ = require('lodash');
 const { User } = require('../models');
+
+// const password = '123';
+const HASH_SALT = 10;
+// const passwordHash = hashSync(password, HASH_SALT);
+// console.log('passwordHash :>> ', passwordHash);
 
 module.exports.createUser = async (req, res, next) => {
   const { body } = req;
 
-  console.log('body :>> ', body);
   try {
+    body.passwordHash = hashSync(body.passwordHash, HASH_SALT);
     const createdUser = await User.create(body);
-
     if (!createdUser) {
       return res.status(400).send('Server Error');
     }
-    res.status(201).send(createdUser);
+
+    // const preparedUser = { ...createdUser.get() };
+    // delete preparedUser.passwordHash;
+    // delete preparedUser.created_at;
+    // delete preparedUser.updated_at;
+
+    const preparedUser = _.omit(createdUser.get(), [
+      'passwordHash',
+      'updatedAt',
+      'createdAt',
+    ]);
+
+    res.status(201).send(preparedUser);
   } catch (err) {
     console.log('err :>> ', err);
     next();

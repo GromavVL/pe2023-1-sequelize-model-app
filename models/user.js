@@ -41,10 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       passwordHash: {
-        type: DataTypes.DATEONLY,
-        validate: {
-          isBefore: new Date().toISOString(),
-        },
+        type: DataTypes.STRING,
       },
       gender: {
         type: DataTypes.STRING(10),
