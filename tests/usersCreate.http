@@ -9,3 +9,6 @@ Content-Type: application/json
   "birthday":"1990-12-01",
   "gender":"female"
 }
+
+
+GET http://localhost:5000/api/users?page=2&results=5

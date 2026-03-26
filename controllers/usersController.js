@@ -35,7 +35,23 @@ module.exports.createUser = async (req, res, next) => {
   }
 };
 module.exports.getUser = async (req, res, next) => {
-  res.send('Hello');
+  const { limit, offset } = req.pagination;
+  console.log('req.query :>> ', req.pagination);
+  try {
+    const foundUser = await User.findAll({
+      raw: true,
+      attributes: { exclude: ['createdAt', 'updatedAt', 'passwordHash'] },
+      limit,
+      offset,
+      order: ['id'],
+    });
+    res.status(200).send({
+      date: foundUser,
+    });
+  } catch (err) {
+    console.log('err :>> ', err);
+    next(err);
+  }
 };
 module.exports.getUserByid = async (req, res, next) => {};
 module.exports.updateUserById = async (req, res, next) => {};
