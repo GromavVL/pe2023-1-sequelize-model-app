@@ -8,7 +8,7 @@ usersRouter
   .route('/')
   .get(paginate.paginateUser, usersController.getUser)
   .post(usersController.createUser);
-console.log('paginate.paginateUser, :>> ', paginate.paginateUser);
+
 usersRouter
   .route('/:id')
   .get(usersController.getUserByid)

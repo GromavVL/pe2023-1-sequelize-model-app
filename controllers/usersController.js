@@ -30,8 +30,7 @@ module.exports.createUser = async (req, res, next) => {
 
     res.status(201).send(preparedUser);
   } catch (err) {
-    console.log('err :>> ', err);
-    next();
+    next(err);
   }
 };
 module.exports.getUser = async (req, res, next) => {
@@ -53,6 +52,45 @@ module.exports.getUser = async (req, res, next) => {
     next(err);
   }
 };
-module.exports.getUserByid = async (req, res, next) => {};
-module.exports.updateUserById = async (req, res, next) => {};
-module.exports.deleteUserById = async (req, res, next) => {};
+module.exports.getUserByid = async (req, res, next) => {
+  const { id } = req.params;
+  console.log('req.params :>> ', req.params);
+  try {
+    const foundUser = await User.findByPk(id, {
+      raw: true,
+      attributes: { exclude: ['createdAt', 'updatedAt', 'passwordHash'] },
+    });
+
+    if (!foundUser) {
+      return res.status(404).send('Server Error');
+    }
+    res.status(200).send({ data: foundUser });
+  } catch (err) {
+    console.log('err :>> ', err);
+    next(err);
+  }
+};
+module.exports.updateUserById = async (req, res, next) => {
+  const {
+    params: { id },
+    body,
+  } = req;
+  try {
+  } catch (err) {
+    next(err);
+  }
+};
+module.exports.deleteUserById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const deleteUsers = await User.destroy({ where: { id } });
+
+    if (deleteUsers === 0) {
+      return res.status(404).send([{ status: 404, title: 'Not Found' }]);
+    }
+    res.status(202).end();
+  } catch (err) {
+    next(err);
+  }
+};

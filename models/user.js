@@ -40,9 +40,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      passwordHash: {
-        type: DataTypes.STRING,
-      },
       gender: {
         type: DataTypes.STRING(10),
         validate: {
