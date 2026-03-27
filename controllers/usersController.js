@@ -72,10 +72,20 @@ module.exports.getUserByid = async (req, res, next) => {
 };
 module.exports.updateUserById = async (req, res, next) => {
   const {
-    params: { id },
     body,
+    params: { id },
   } = req;
   try {
+    const [updatesUserCount, updatedUsers] = await User.update(body, {
+      where: { id },
+      raw: true,
+      returning: true,
+    });
+
+    if (!updatesUserCount) {
+      return res.status(404).send([{ status: 404, title: 'Not Found' }]);
+    }
+    res.status(200).send({ data: updatedUsers[0] });
   } catch (err) {
     next(err);
   }
@@ -86,7 +96,7 @@ module.exports.deleteUserById = async (req, res, next) => {
   try {
     const deleteUsers = await User.destroy({ where: { id } });
 
-    if (deleteUsers === 0) {
+    if (!deleteUsers) {
       return res.status(404).send([{ status: 404, title: 'Not Found' }]);
     }
     res.status(202).end();

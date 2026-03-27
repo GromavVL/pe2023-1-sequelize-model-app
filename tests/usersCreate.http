@@ -41,7 +41,7 @@ Content-Type: application/json
 
 ### 404
 
-PATCH  http://localhost:5000/api/users/111
+PATCH  http://localhost:5000/api/users/12
 Content-Type: application/json
 
 {
@@ -50,7 +50,7 @@ Content-Type: application/json
 
 ### 500 (422)
 
-PATCH  http://localhost:5000/api/users/31
+PATCH  http://localhost:5000/api/users/12
 Content-Type: application/json
 
 {
