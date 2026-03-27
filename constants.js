@@ -1,5 +1,5 @@
-const CONSTANTS = {
+export const CONSTANTS = {
   GENDERS: ['male', 'female', 'other'],
 };
 
-module.exports = CONSTANTS;
+export const HASH_SALT = 10;
