@@ -4,7 +4,7 @@ Content-Type: application/json
 {
   "firstName":"Jane",
   "lastName": "Dou",
-  "email":"m6113@m.com",
+  "email":"m61133@m.com",
   "passwordHash": "123",
   "birthday":"1990-12-01",
   "gender":"female"
@@ -32,11 +32,11 @@ DELETE http://localhost:5000/api/users/111
 
 ### 200
 
-PATCH  http://localhost:5000/api/users/12
+PATCH  http://localhost:5000/api/users/7
 Content-Type: application/json
 
 {
-    "passwHash": "newpassw"
+    "passwordHash": "newpas2332sw"
 }
 
 ### 404
@@ -55,4 +55,31 @@ Content-Type: application/json
 
 {
     "firstName": "545153153"
+}
+
+
+
+PUT http://localhost:5000/api/users/16
+Content-Type: application/json
+
+{
+  "firstName":"Jane",
+  "lastName": "Dou",
+  "email":"m99@m.com",
+  "passwordHash": "123",
+  "birthday":"1990-12-01",
+  "gender":"female"
+}
+
+
+PUT http://localhost:5000/api/users/1000
+Content-Type: application/json
+
+{
+  "firstName":"Jane",
+  "lastName": "Dou",
+  "email":"m102@m.com",
+  "passwordHash": "123",
+  "birthday":"1990-12-01",
+  "gender":"female"
 }
