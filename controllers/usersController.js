@@ -130,3 +130,28 @@ module.exports.deleteUserById = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.getUserTask = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const foundUser = await User.findByPk(id);
+
+    console.log('foundUser :>> ', foundUser);
+    if (!foundUser) {
+      return res.status(404).send('Server Error');
+    }
+
+    const foundUserTasks = await foundUser.getTasks({
+      raw: true,
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    });
+
+    console.log('foundUserTasks :>> ', foundUserTasks);
+    res.status(200).send({ data: foundUserTasks });
+  } catch (err) {
+    next(err);
+  }
+};

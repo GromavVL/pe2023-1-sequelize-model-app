@@ -16,4 +16,6 @@ usersRouter
   .patch(usersController.updateUserById)
   .put(usersController.updateOrCreateUsers, usersController.createUser);
 
+usersRouter.get('/:id/tasks', usersController.getUserTask);
+
 module.exports = usersRouter;
