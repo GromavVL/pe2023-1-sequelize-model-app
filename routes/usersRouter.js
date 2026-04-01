@@ -2,6 +2,8 @@ const { Router } = require('express');
 const { usersController } = require('../controllers');
 const { paginate } = require('../middleware');
 
+const multer = require('multer');
+
 const usersRouter = Router();
 
 usersRouter
