@@ -16,7 +16,7 @@ GET http://localhost:5000/api/users?page=2&results=5
 
 ### 200
 
-GET http://localhost:5000/api/users/30
+GET http://localhost:5000/api/users/12
 
 ### 404
 
