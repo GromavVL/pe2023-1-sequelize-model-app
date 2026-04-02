@@ -155,3 +155,25 @@ module.exports.getUserTask = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.updateUserImages = async (req, res, next) => {
+  const {
+    file: { filename },
+    params: { id },
+  } = req;
+
+  try {
+    const [updateUserCount, [updatedUser]] = await User.update(
+      { image: filename },
+      { where: { id }, raw: true, returning: true }
+    );
+
+    if (!updateUserCount) {
+      return res.status(404).send('Error updated images');
+    }
+
+    res.status(200).send(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+};

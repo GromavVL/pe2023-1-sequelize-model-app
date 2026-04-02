@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       deadline: {
         type: DataTypes.DATEONLY,
         validate: {
-          // пізніше за вчора // date-fns: const yesturday = addDays(new Date(), -1)
           isAfter: new Date(
             new Date().setDate(new Date().getDate() - 15)
           ).toISOString(),
